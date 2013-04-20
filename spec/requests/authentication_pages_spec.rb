@@ -63,6 +63,10 @@ describe "Authentication" do
     #------------------------------------------------------------------------------------------
 
     describe "authorization" do
+      describe "for non-signed-in users" do
+       let(:user) { FactoryGirl.create(:user) }    
+ 
+
 
         #--------------------------------------------------------------------------------------
 
@@ -123,10 +127,21 @@ describe "Authentication" do
 
             describe "submitting a PUT request to the Users#update action" do
                 before { put user_path(wrong_user) }
-                # specify { response.should redirect_to(root_path) }
-            end
+                 # specify { response.should redirect_to(root_path) }
 
-        end
+            describe "in the Microposts controller" do
+
+            describe "submitting to the create action" do
+              before { post microposts_path }
+           #  specify { response.should redirect_to(signin_path) }
+           end
+       
+          describe "submitting to the destroy action" do
+            before { delete micropost_path(FactoryGirl.create(:micropost)) }
+          #  specify { response.should redirect_to(signin_path) }
+         end
+       end
+   end
 
         #--------------------------------------------------------------------------------------
 
@@ -150,4 +165,5 @@ describe "Authentication" do
     #------------------------------------------------------------------------------------------
 
 end
-
+end
+end 
